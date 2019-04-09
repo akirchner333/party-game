@@ -1,0 +1,25 @@
+import React from 'react';
+
+import AnswerForm from "../components/answer_form.jsx";
+import OneRound from "../components/one_round.jsx";
+
+const NumberPlayer = () => {
+  return (<AnswerForm type="number" buttonText="GUESS" />);
+}
+
+const NumberHost = () => {
+  const power = parseInt(Math.random() * 10) + 1
+  const number = parseInt(Math.random() * Math.pow(10, power))
+  return (
+    <OneRound 
+      scorer={(player) => player.guess == number ? 100 : 1}
+      startComponent={() => (<div>
+          <h1>Guess A Number!</h1>
+          <div>You have 15 seconds</div>
+        </div>)}
+      finishComponent={() => (<h1>The Number Was {number}!</h1>)}/>
+  );
+}
+
+const number = {player: NumberPlayer, host: NumberHost, key: 'number', title: 'Guess The Number'}
+export default number;

@@ -1,0 +1,16 @@
+<h1>100 Bad Party Games</h1>
+
+<div>
+  <%= form_for @game do |f| %>
+    <%= f.submit "START NEW GAME" %>
+  <% end %>
+</div>
+<br>
+<div>
+  Join An Existing Game<br>
+  <%= form_for :player, url: players_path, method: :post do |f| %>
+    Game Id: <%= f.text_field :code %><br>
+    Name: <%= f.text_field :name %><br>
+    <%= f.submit "JOIN" %>
+  <% end %>
+</div>
