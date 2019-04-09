@@ -6,7 +6,7 @@ class Display extends React.Component{
     super(props);
     const timeout = window.setTimeout(() => {
       this.resolve();
-    }, props.resolveWait || 15000);
+    }, (props.resolveWait * 1000) || 15000);
 
     this.state = {
       finished: false,
