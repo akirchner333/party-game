@@ -30,4 +30,4 @@ const Host = () => {
 }
 
 const first_press = {player: Player, host: Host, key: 'first_press', title: "First Press"};
-export default capitalism;
+export default first_press;

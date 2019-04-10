@@ -19,10 +19,10 @@ class Display extends React.Component{
   }
 
   resolve(){
-    var scores = {};
-    this.props.players.forEach((player) => {
-      scores[player.name] = this.props.scorer(player, this.props.players);
-    });
+    var scores = this.props.scorer(this.props);
+    // this.props.players.forEach((player) => {
+    //   scores[player.name] = this.props.scorer(player, this.props.players);
+    // });
     this.setState({finished: true, scores});
     this.props.updateScores(scores);
     this.props.channel.perform('send_message', {type: "ADD_POINTS", scores});

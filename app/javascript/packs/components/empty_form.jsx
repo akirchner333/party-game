@@ -9,8 +9,9 @@ class FormDisplay extends React.Component{
   }
 
   handleSubmit(event){
-    this.props.channel.perform('send_message', {type: "ANSWER", answer: true, name: this.props.name});
-    this.props.setGuess(true);
+    var answer = this.props.answer() || true;
+    this.props.channel.perform('send_message', {type: "ANSWER", name: this.props.name, answer});
+    this.props.setGuess(answer);
     event.preventDefault();
     this.props.wait();
     return false;

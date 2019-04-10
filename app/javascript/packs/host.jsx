@@ -11,8 +11,14 @@ import Router from './components/router.jsx'
 import Root from './components/host_root.jsx'
 import {host_games} from './games/index.js'
 
-const stored = JSON.parse(localStorage.getItem('host_store') || '{}');
-console.log(stored);
+var stored = {};
+try{
+  const local = localStorage.getItem('host_store');
+  stored = JSON.parse(local) || {};
+}catch(err){
+  console.log("caught?")
+}
+
 let store = createStore(reducer, applyMiddleware(hostLocalStore));
 store.dispatch({type: "LOAD", stored});
 let channel = hostChannel(id, store);
