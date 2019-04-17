@@ -19,4 +19,11 @@ const hostLocalStore = store => next => action => {
   return result;
 }
 
-export {playerLocalStore, hostLocalStore};
+const broadcast = store => next => action => {
+  if(action.broadcast){
+    store.getState().channel.perform('send_message', action);
+  }
+  return next(action);
+}
+
+export {playerLocalStore, hostLocalStore, broadcast};

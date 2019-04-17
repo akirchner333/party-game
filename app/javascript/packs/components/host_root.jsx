@@ -12,7 +12,7 @@ class RootDisplay extends React.Component{
 
   redirect(e, state){
     e.preventDefault();
-    this.props.channel.perform('send_message', {type: "SET_STATE", state});
+    // this.props.channel.perform('send_message', {type: "SET_STATE", state});
     this.props.setState(state);
   }
 
@@ -60,7 +60,7 @@ const mapState = (state) => {
 
 const mapDispatch = (dispatch) => {
   return {
-    setState: (state) => dispatch({type: "SET_STATE", state})
+    setState: (state) => dispatch({type: "SET_STATE", state, broadcast: true})
   };
 }
 

@@ -6,6 +6,7 @@ import capitalism from "./capitalism.jsx"
 import grenade from "./grenade.jsx"
 import first_press from "./first_press.jsx"
 import last_press from "./last_press.jsx"
+import death from "./death.jsx"
 
 const games = [
   number,
@@ -15,7 +16,8 @@ const games = [
   capitalism,
   grenade,
   first_press,
-  last_press
+  last_press,
+  death
 ]
 
 var host_games = {};

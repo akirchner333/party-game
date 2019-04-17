@@ -1,6 +1,7 @@
 import React from 'react';
 
 import OneRound from "../components/one_round.jsx";
+import {flat} from "../components/scorers.jsx"
 
 const LookPlayer = () => {
   return (<h1>DON{'\''}T LOOK HERE, LOOK AT THE CAT</h1>);
@@ -9,7 +10,7 @@ const LookPlayer = () => {
 const LookHost = () => {
   return (
     <OneRound 
-      scorer={(player) => 93}
+      scorer={flat(50)}
       finished={(players) => false}
       startComponent={() => (<div>
           <h1>HEY, CAN YOU LOOK AT THIS CAT FOR ME?</h1>

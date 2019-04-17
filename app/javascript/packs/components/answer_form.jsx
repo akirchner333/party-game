@@ -1,9 +1,16 @@
 import React from 'react';
 import { connect } from 'react-redux'
+import PropTypes from 'prop-types'
+
+import Waiting from "./waiting.jsx"
+import {text} from "./inputs.jsx"
+
 
 class FormDisplay extends React.Component{
   constructor(props){
     super(props);
+
+    this.state = {finished: false}
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -14,22 +21,39 @@ class FormDisplay extends React.Component{
   }
 
   handleSubmit(event){
-    this.props.channel.perform('send_message', {type: "ANSWER", answer: this.props.guess, name: this.props.name});
+    this.props.channel.perform('send_message', {type: "ANSWER", answer: this.props.guess || this.props.answer(), name: this.props.name});
     event.preventDefault();
-    this.props.wait();
+    this.setState({finished: true})
     return false;
   }
 
   render(){
-    return (
-      <div>
-        <form onSubmit={this.handleSubmit}>
-          <input type={this.props.type || 'text'} value={this.props.guess} onChange={this.handleChange}></input>
-          <input type="submit" value={this.props.buttonText || "SUBMIT"}/>
-        </form>
-      </div>
-    );
+    if(!this.state.finished){
+      return (
+        <div>
+          <form onSubmit={this.handleSubmit}>
+            {this.props.input(this.props.guess, this.handleChange)}
+            <input type="submit" value={this.props.buttonText}/>
+          </form>
+        </div>
+      );
+    }else{
+      return (<Waiting />);
+    }
+    
   }
+}
+
+FormDisplay.defaultProps = {
+  answer: () => true,
+  buttonText: "SUBMIT",
+  input: text
+}
+
+FormDisplay.propTypes = {
+  answer: PropTypes.func,
+  input: PropTypes.func,
+  buttonText: PropTypes.string
 }
 
 const mapState = (state) => {
@@ -43,7 +67,6 @@ const mapState = (state) => {
 const mapDispatch = (dispatch) => {
   return {
     setGuess: (guess) => dispatch({type: "SET_GUESS", guess}),
-    wait: () => dispatch({type: "SET_STATE", state: 'wait'})
   };
 }
 

@@ -1,10 +1,10 @@
 import React from 'react';
 
-import EmptyForm from "../components/empty_form.jsx";
+import AnswerForm from "../components/answer_form.jsx";
 import OneRound from "../components/one_round.jsx";
 
 const Player = () => {
-  return (<EmptyForm buttonText="PRESS" answer={() => (new Date()).getTime()} />);
+  return (<AnswerForm buttonText="PRESS" answer={() => (new Date()).getTime()} />);
 }
 
 const Host = () => {

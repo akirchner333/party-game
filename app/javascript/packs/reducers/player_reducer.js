@@ -18,6 +18,8 @@ const guess = (state = "", action) => {
   switch(action.type){
     case 'SET_GUESS':
       return action.guess;
+    case 'END_GAME':
+      return "";
     default:
       return state;
   }

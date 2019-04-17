@@ -1,11 +1,11 @@
 import React from 'react';
 
-import RadioForm from "../components/radio_form.jsx";
+import AnswerForm from "../components/answer_form.jsx";
 import OneRound from "../components/one_round.jsx";
 import bird from "../../images/bird1.jpg"
 
 const Player = () => {
-  return (<RadioForm options={[
+  return (<AnswerForm options={[
     {value: 1, text: "Yes"},
     {value: 0, text: "No"}
   ]}/>)

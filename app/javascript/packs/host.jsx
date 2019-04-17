@@ -5,7 +5,7 @@ import { createStore, applyMiddleware } from 'redux'
 import { Provider, connect } from 'react-redux'
 
 import reducer from './reducers/host_reducer.js'
-import {hostLocalStore} from "./reducers/middleware.js"
+import {hostLocalStore, broadcast} from "./reducers/middleware.js"
 import Router from './components/router.jsx'
 
 import Root from './components/host_root.jsx'
@@ -19,7 +19,7 @@ try{
   console.log("caught?")
 }
 
-let store = createStore(reducer, applyMiddleware(hostLocalStore));
+let store = createStore(reducer, applyMiddleware(hostLocalStore, broadcast));
 store.dispatch({type: "LOAD", stored});
 let channel = hostChannel(id, store);
 store.dispatch({type: "CREATE", channel, id, code});

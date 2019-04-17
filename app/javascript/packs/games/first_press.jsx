@@ -1,16 +1,19 @@
 import React from 'react';
 
-import EmptyForm from "../components/empty_form.jsx";
+import AnswerForm from "../components/answer_form.jsx";
 import OneRound from "../components/one_round.jsx";
 
+import {empty} from "../components/inputs.jsx"
+import {existence} from "../components/scorers.jsx"
+
 const Player = () => {
-  return (<EmptyForm buttonText="PRESS" />);
+  return (<AnswerForm buttonText="PRESS" input={empty}/>);
 }
 
 const Host = () => {
   return (
     <OneRound 
-      scorer={(player) => player.guess ? 100 : 0}
+      scorer={existance(100, 0)}
       finished={(players) => players.some((p) => p.guess != null)}
       startComponent={() => (<div>
           <h1>WHOEVER PRESSES THE BUTTON FIRST GETS 100 POINTS</h1>

@@ -9,9 +9,10 @@ const players = (state = [], action) => {
     case 'LOAD':
       return action.stored.players ? action.stored.players : state;
     case 'ADD_SCORE':
-    case 'UPDATE_SCORES':
+    case 'ADD_POINTS':
     case 'ANSWER':
     case 'CLEAR_GUESSES':
+    case 'END_GAME':
       return state.map((p) => player(p, action));
     default:
       return state;
@@ -29,9 +30,10 @@ const player = (state = {}, action) => {
     }
   }else{
     switch(action.type){
-      case 'UPDATE_SCORES':
+      case 'ADD_POINTS':
         const delta = action.scores[state.name] || 0;
         return Object.assign({}, state, {score: parseInt(state.score) + delta});
+      case 'END_GAME':
       case 'CLEAR_GUESSES':
         return Object.assign({}, state, {guess: null});
       default:
