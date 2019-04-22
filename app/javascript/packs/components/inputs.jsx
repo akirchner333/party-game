@@ -17,4 +17,19 @@ const radio = (options) => {
 
 const empty = () => <React.Fragment></React.Fragment>
 
-export {numerical, text, radio, empty}
+const players = (value, handleChange, props) => {
+  console.log("Props received by player", props)
+  if(props.host_info){
+    const buttons = props.host_info.players.map((p) => {
+    return (<React.Fragment key={p.name}>
+      <input type="radio" value={p.name} onChange={handleChange} check={value == p.name} />
+      {p.name}<br/>
+      </React.Fragment>);
+    });
+    return (<React.Fragment>{buttons}</React.Fragment>);
+  }else{
+    return empty();
+  }
+}
+
+export {numerical, text, radio, players, empty}

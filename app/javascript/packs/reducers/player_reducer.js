@@ -25,6 +25,20 @@ const guess = (state = "", action) => {
   }
 }
 
+// Game specific information sent by the host to the players
+// Will be an object, different each game depending on what the game requires
+// Reset at the end of each game,
+const host_info = (state = null, action) => {
+  switch(action.type){
+    case 'SET_HOST_INFO':
+      return action.info;
+    case 'END_GAME':
+      return null;
+    default:
+      return state;
+  }
+}
+
 const name = (state = "", action) => {
   switch(action.type){
     case 'CREATE':
@@ -40,6 +54,7 @@ const player_reducers = {
   score,
   guess,
   name,
+  host_info
 }
 
 const combined = combineReducers(Object.assign({}, player_reducers, shared_reducers));

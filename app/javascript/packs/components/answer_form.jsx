@@ -32,7 +32,7 @@ class FormDisplay extends React.Component{
       return (
         <div>
           <form onSubmit={this.handleSubmit}>
-            {this.props.input(this.props.guess, this.handleChange)}
+            {this.props.input(this.props.guess, this.handleChange, this.props)}
             <input type="submit" value={this.props.buttonText}/>
           </form>
         </div>
@@ -60,7 +60,8 @@ const mapState = (state) => {
   return {
     guess: state.guess,
     channel: state.channel,
-    name: state.name
+    name: state.name,
+    host_info: state.host_info
   }
 }
 

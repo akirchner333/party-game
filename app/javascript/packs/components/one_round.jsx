@@ -5,20 +5,22 @@ import PropTypes from 'prop-types'
 class Display extends React.Component{
   constructor(props){
     super(props);
+
+    var info = props.startFunc(props);
     const timeout = window.setTimeout(() => {
       this.resolve();
     }, props.resolveWait * 1000);
 
-    this.state = {
+    this.state = Object.assign({}, {
       finished: false,
       timeout
-    }
+    }, info);
 
     this.resolve = this.resolve.bind(this);
   }
 
   resolve(){
-    var scores = this.props.scorer(this.props);
+    var scores = this.props.scorer(this.props, this.state);
     console.log(scores);
     this.setState({finished: true, scores});
     this.props.updateScores(scores);
@@ -37,12 +39,12 @@ class Display extends React.Component{
 
   render(){
     if(!this.state.finished){
-      return (<div>{this.props.startComponent(this.props)}</div>);
+      return (<div>{this.props.startComponent(this.props, this.state)}</div>);
     }else{
-      const scores = this.props.players.map((p) => this.props.scoreText(p, this.state.scores, this.props.verb));
+      const scores = this.props.players.map((p) => this.props.scoreText(p, this.state.scores, this.props.verb, this.state));
       return (
         <div>
-          {this.props.finishComponent(this.props)}
+          {this.props.finishComponent(this.props, this.state)}
           <ul>
             {scores}
           </ul>
@@ -62,7 +64,8 @@ Display.propTypes = {
   scoreText: PropTypes.func,
   scorer: PropTypes.func.isRequired,
   startComponent: PropTypes.func.isRequired,
-  finishComponent: PropTypes.func.isRequired
+  finishComponent: PropTypes.func.isRequired,
+  startFunc: PropTypes.func
 }
 
 Display.defaultProps = {
@@ -70,7 +73,8 @@ Display.defaultProps = {
   resolveWait: 15,
   returnWait: 5,
   finished: (players) => players.every((player) => player.guess != null),
-  scoreText: (player, scores, verb) => (<li key={player.id}>{player.name} {verb} {player.guess || "nothing"}, +{scores[player.name]} points - {player.score} total</li>)
+  scoreText: (player, scores, verb, state) => (<li key={player.id}>{player.name} {verb} {player.guess || "nothing"}, +{scores[player.name]} points - {player.score} total</li>),
+  startFunc: () => {}
 }
 
 const mapState = (state) => {
